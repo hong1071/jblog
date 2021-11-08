@@ -16,12 +16,11 @@
 			<h1 class="logo" style="background:url(${pageContext.request.contextPath}/assets/images/logo.jpg)">JBlog</h1>
 		</a>
 		<ul class="menu">
-			<li><a href="${pageContext.request.contextPath}/user/loginForm">로그인</a></li>
 			<li><a href="${pageContext.request.contextPath}/user/joinForm">회원가입</a></li>
 			<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
 			<li><a href="">내블로그</a></li>
 		</ul>
-		<form class="login-form">
+		<form class="login-form" action="${pageContext.request.contextPath}/user/login">
       		<label>아이디</label> <input type="text" name="id">
       		<label>패스워드</label> <input type="text" name="password">
       		<input type="submit" value="로그인">

@@ -62,7 +62,7 @@
 	</bean>
 	
  	<!-- mvc url-resource mapping -->
- 	<mvc:resources mapping="/images/**" location="file:/upload-mysite/" />
+ 	<mvc:resources mapping="/images/**" location="file:/upload-jblog/" />
  	
  	<!-- 
  	<mvc:interceptors>

@@ -1,10 +1,12 @@
 package com.douzone.jblog.controller;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.douzone.jblog.service.UserService;
 import com.douzone.jblog.vo.UserVo;
@@ -26,6 +28,7 @@ public class UserController {
 		
 		System.out.println(vo);
 		userService.join(vo);
+		userService.makeBlog(vo);
 		
 		return "user/joinsuccess";
 	}
@@ -33,5 +36,27 @@ public class UserController {
 	@RequestMapping("/loginForm")
 	public String loginForm() {
 		return "user/login";
+	}
+	
+	@RequestMapping("/login")
+	public String login(@RequestParam String id, @RequestParam String password, Model model, HttpSession session) {
+		
+		UserVo userVo = userService.getUser(id, password);
+		
+		if(userVo == null) {
+			model.addAttribute("result", "fail");
+			return "user/login";
+		}
+		
+		/* 인증처리 */
+		session.setAttribute("authUser", userVo);
+		return "redirect:/main";
+	}
+	
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) {
+		session.removeAttribute("authUser");
+		session.invalidate();
+		return "redirect:/";
 	}
 }

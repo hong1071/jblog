@@ -15,10 +15,16 @@
 			<h1 class="logo" style="background:url(${pageContext.request.contextPath}/assets/images/logo.jpg)">JBlog</h1>
 		</a>
 		<ul class="menu">
-			<li><a href="${pageContext.request.contextPath}/user/loginForm">로그인</a></li>
-			<li><a href="${pageContext.request.contextPath}/user/joinForm">회원가입</a></li>
-			<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
-			<li><a href="">내블로그</a></li>
+			<c:choose>
+				<c:when test="${empty authUser }">
+					<li><a href="${pageContext.request.contextPath}/user/loginForm">로그인</a></li>
+					<li><a href="${pageContext.request.contextPath}/user/joinForm">회원가입</a></li>
+				</c:when>
+				<c:otherwise>
+					<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/${authUser.id}">내블로그</a></li>
+				</c:otherwise>
+			</c:choose>
 		</ul>
 		<form class="search-form">
 			<fieldset>
