@@ -16,9 +16,15 @@
 				<h1>Spring 이야기</h1>
 			</a>
 			<ul>
-				<li><a href="">로그인</a></li>
-				<li><a href="">로그아웃</a></li>
-				<li><a href="">블로그 관리</a></li>
+				<c:choose>
+					<c:when test="${authUser == null }">
+						<li><a href="">로그인</a></li>
+					</c:when>
+					<c:otherwise>
+						<li><a href="">로그아웃</a></li>
+						<li><a href="${pageContext.request.contextPath}/blog/${authUser.id}/admin">블로그 관리</a></li>
+					</c:otherwise>
+				</c:choose>
 			</ul>
 		</div>
 		<div id="wrapper">
@@ -30,15 +36,17 @@
 					
 					
 				</ul>
-				<form action="" method="post">
+				<form action="${pageContext.request.contextPath}/blog/${authUser.id}/admin/write" method="post">
 			      	<table class="admin-cat-write">
 			      		<tr>
 			      			<td class="t">제목</td>
 			      			<td>
 			      				<input type="text" size="60" name="title">
 				      			<select name="category">
-				      				<option>미분류</option>
-				      				<option>자바</option>
+				      				<option>카테고리를 선택하세요</option>
+				      				<c:forEach items="${categoryList }" var="list">
+					      				<option value="${list.no}">${list.name}</option>
+				      				</c:forEach>
 				      			</select>
 				      		</td>
 			      		</tr>

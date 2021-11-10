@@ -1,5 +1,7 @@
 package com.douzone.jblog.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,5 +20,12 @@ public class CategoryRepository {
 		
 		return count == 1;
 	}
+
+	public List<CategoryVo> findAll(String userId) {
+		
+		return sqlSession.selectList("category.findAll");
+		
+	}
+
 
 }
