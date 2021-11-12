@@ -26,4 +26,10 @@ public class CategoryService {
 		return categorylist;
 	}
 
+	public List<CategoryVo> findAllAndCount() {
+		
+		return categoryRepository.findAllAndCount();
+	}
+
 }
+

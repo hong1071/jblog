@@ -6,6 +6,14 @@ public class CategoryVo {
 	private String name;
 	private String desc;
 	private String blogId;
+	private int count;
+	
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
 	public int getNo() {
 		return no;
 	}
@@ -33,7 +41,8 @@ public class CategoryVo {
 	
 	@Override
 	public String toString() {
-		return "CategoryVo [no=" + no + ", name=" + name + ", desc=" + desc + ", blogId=" + blogId + "]";
+		return "CategoryVo [no=" + no + ", name=" + name + ", desc=" + desc + ", blogId=" + blogId + ", count=" + count
+				+ "]";
 	}
 	
 }

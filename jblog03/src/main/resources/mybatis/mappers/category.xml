@@ -11,4 +11,13 @@
 	<select id="findAll" resultType="categoryvo">
 		select no, name, 'desc', blog_id from category order by name desc
 	</select>
+	
+	<select id="findAllAndCount" resultType="categoryvo">
+		select t1.no as no, t1.name as name, count(t2.no) as count, t1.desc as 'desc'
+		from category t1 left join post t2
+			on t1.no = t2.category_no
+		group by t1.no
+	</select>
+	
+	
 </mapper>

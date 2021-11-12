@@ -13,7 +13,7 @@
 	<div id="container">
 		<div id="header">
 			<a href="${pageContext.request.contextPath}/blog/${authUser.id}">
-				<h1>Spring 이야기</h1>
+				<h1>${blogVo.title }</h1>
 			</a>
 			<ul>
 				<c:choose>
@@ -23,6 +23,7 @@
 					<c:otherwise>
 						<li><a href="">로그아웃</a></li>
 						<li><a href="${pageContext.request.contextPath}/blog/${authUser.id}/admin">블로그 관리</a></li>
+						<li><a>${blogVo.id }님 환영합니다!</a></li>
 					</c:otherwise>
 				</c:choose>
 			</ul>
@@ -51,22 +52,23 @@
 		<div id="extra">
 			<div class="blog-logo">
 				<img src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg">
+				<!-- ${blogVo.logo} -->
 			</div>
 		</div>
 
 		<div id="navigation">
 			<h2>카테고리</h2>
 			<ul>
-				<li><a href="">닥치고 스프링</a></li>
-				<li><a href="">스프링 스터디</a></li>
-				<li><a href="">스프링 프로젝트</a></li>
-				<li><a href="">기타</a></li>
+				<c:forEach items="${categoryList }" var="list">
+					<li><a href="">${list.name }</a></li>
+				</c:forEach>
+
 			</ul>
 		</div>
 		
 		<div id="footer">
 			<p>
-				<strong>Spring 이야기</strong> is powered by JBlog (c)2016
+				<strong>${blogVo.title }</strong> is powered by JBlog (c)2016
 			</p>
 		</div>
 	</div>

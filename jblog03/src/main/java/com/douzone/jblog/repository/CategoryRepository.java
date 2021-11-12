@@ -27,5 +27,10 @@ public class CategoryRepository {
 		
 	}
 
+	public List<CategoryVo> findAllAndCount() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("category.findAllAndCount");
+	}
+
 
 }

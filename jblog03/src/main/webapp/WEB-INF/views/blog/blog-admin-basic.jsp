@@ -13,7 +13,7 @@
 	<div id="container">
 		<div id="header">
 			<a href="${pageContext.request.contextPath}/blog/${authUser.id}">
-				<h1>Spring 이야기</h1>
+				<h1>${blogVo.title }</h1>
 			</a>
 			<ul>
 				<c:choose>

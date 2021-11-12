@@ -13,7 +13,7 @@
 	<div id="container">
 		<div id="header">
 			<a href="${pageContext.request.contextPath}/blog/${authUser.id}">
-				<h1>Spring 이야기</h1>
+				<h1>${blogVo.title }</h1>
 			</a>
 			<ul>
 				<c:choose>
@@ -42,7 +42,7 @@
 			      			<td class="t">제목</td>
 			      			<td>
 			      				<input type="text" size="60" name="title">
-				      			<select name="category">
+				      			<select name="categoryNo">
 				      				<option>카테고리를 선택하세요</option>
 				      				<c:forEach items="${categoryList }" var="list">
 					      				<option value="${list.no}">${list.name}</option>
@@ -64,7 +64,7 @@
 		</div>
 		<div id="footer">
 			<p>
-				<strong>Spring 이야기</strong> is powered by JBlog (c)2016
+				<strong>${blogVo.title }</strong> is powered by JBlog (c)2016
 			</p>
 		</div>
 	</div>

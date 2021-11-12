@@ -20,4 +20,9 @@ public class BlogService {
 		System.out.println(vo + " after service");
 	}
 
+	public BlogVo findById(String userId) {
+		return blogRepository.findById(userId);
+		
+	}
+
 }
