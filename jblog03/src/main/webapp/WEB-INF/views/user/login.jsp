@@ -20,9 +20,17 @@
 			<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
 			<li><a href="">내블로그</a></li>
 		</ul>
-		<form class="login-form" action="${pageContext.request.contextPath}/user/login">
+		<form class="login-form" action="${pageContext.request.contextPath}/user/auth">
       		<label>아이디</label> <input type="text" name="id">
       		<label>패스워드</label> <input type="text" name="password">
+      		<c:set var='result' value='${result }'/>
+					<c:choose>
+						<c:when test='${result == "fail" }'>
+						<p>
+							로그인이 실패 했습니다.
+						</p>
+						</c:when>
+					</c:choose>
       		<input type="submit" value="로그인">
 		</form>
 	</div>

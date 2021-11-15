@@ -38,6 +38,7 @@ public class UserController {
 		return "user/login";
 	}
 	
+	/* LoginInterceptor으로 인해 사용하지 않음
 	@RequestMapping("/login")
 	public String login(@RequestParam String id, @RequestParam String password, Model model, HttpSession session) {
 		
@@ -48,11 +49,12 @@ public class UserController {
 			return "user/login";
 		}
 		
-		/* 인증처리 */
+		// 인증처리 
 		session.setAttribute("authUser", userVo);
 		return "redirect:/main";
 	}
-	
+	*/
+
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("authUser");

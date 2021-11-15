@@ -7,5 +7,19 @@
 			insert into post values(null, #{title}, #{content}, now(), #{categoryNo})
 		]]>
 	</insert>	
+	<select id="findByCateNo" parameterType="int" resultType="postvo">
+		<![CDATA[
+			select no, title, content, reg_date as regDate, category_no as categoryNo
+			from post 
+			where category_no = #{categoryNo};
+		]]>
+	</select>
+	<select id="findByNo" parameterType="int" resultType="postvo">
+		<![CDATA[
+			select no, title, content, reg_date as regDate, category_no as categoryNo
+			from post 
+			where no = #{no};
+		]]>
+	</select>
 	
 </mapper>
