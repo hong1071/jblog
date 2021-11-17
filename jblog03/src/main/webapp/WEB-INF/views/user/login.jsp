@@ -17,8 +17,6 @@
 		</a>
 		<ul class="menu">
 			<li><a href="${pageContext.request.contextPath}/user/joinForm">회원가입</a></li>
-			<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
-			<li><a href="">내블로그</a></li>
 		</ul>
 		<form class="login-form" action="${pageContext.request.contextPath}/user/auth">
       		<label>아이디</label> <input type="text" name="id">

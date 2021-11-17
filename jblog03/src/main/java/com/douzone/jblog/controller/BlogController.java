@@ -2,8 +2,6 @@ package com.douzone.jblog.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +17,7 @@ import com.douzone.jblog.vo.BlogVo;
 import com.douzone.jblog.vo.CategoryVo;
 import com.douzone.jblog.vo.PostVo;
 import com.douzone.jblog.vo.UserVo;
+import com.douzone.jblog.security.AuthUser;
 
 @Controller
 @RequestMapping("/blog/{authUser}")
@@ -34,12 +33,10 @@ public class BlogController {
 	private PostService postService;
 	
 	@RequestMapping("")
-	public String main(HttpSession session, Model model) {
-		UserVo userVo = (UserVo)session.getAttribute("authUser");
-		String userId = userVo.getId();
+	public String main(@AuthUser UserVo authUser, Model model) {
 		
+		String userId = authUser.getId();
 		BlogVo blogVo = blogService.findById(userId);
-		
 		List<CategoryVo> categoryList = categoryService.findAll(userId);
 		
 		model.addAttribute("categoryList", categoryList);
@@ -49,9 +46,8 @@ public class BlogController {
 	}
 	
 	@RequestMapping("/category/{no}")
-	public String category(@PathVariable("no") int categoryNo, HttpSession session, Model model) {
-		UserVo userVo = (UserVo)session.getAttribute("authUser");
-		String userId = userVo.getId();
+	public String category(@PathVariable("no") int categoryNo, @AuthUser UserVo authUser, Model model) {
+		String userId = authUser.getId();
 		
 		List<PostVo> postList = postService.findByCateNo(categoryNo);
 		List<CategoryVo> categoryList = categoryService.findAll(userId);
@@ -65,9 +61,8 @@ public class BlogController {
 	}
 	
 	@RequestMapping("/post/{no}")
-	public String post(@PathVariable("no") int postNo, HttpSession session, Model model) {
-		UserVo userVo = (UserVo)session.getAttribute("authUser");
-		String userId = userVo.getId();
+	public String post(@PathVariable("no") int postNo, @AuthUser UserVo authUser, Model model) {
+		String userId = authUser.getId();
 		
 		List<CategoryVo> categoryList = categoryService.findAll(userId);
 		BlogVo blogVo = blogService.findById(userId);
@@ -88,9 +83,9 @@ public class BlogController {
 	}
 	
 	@RequestMapping("admin")
-	public String admin(HttpSession session, Model model) {
-		UserVo userVo = (UserVo)session.getAttribute("authUser");
-		String userId = userVo.getId();
+	public String admin(@AuthUser UserVo authUser, Model model) {
+		System.out.println(authUser);
+		String userId = authUser.getId();
 		BlogVo blogVo = blogService.findById(userId);
 		model.addAttribute("blogVo", blogVo);
 		
@@ -98,17 +93,14 @@ public class BlogController {
 	}
 	
 	@RequestMapping("admin/update")
-	public String update(BlogVo blogVo, HttpSession session, 
+	public String update(BlogVo blogVo, @AuthUser UserVo authUser,
 		@RequestParam(value="file") MultipartFile multipartFile, Model model) {
-		
-		UserVo userVo = (UserVo)session.getAttribute("authUser");
-		
-		String userId = userVo.getId();
+		System.out.println(authUser);
+		String userId = authUser.getId();
 		blogVo.setId(userId);
 				
 		String url = blogService.restore(multipartFile);
 		blogVo.setLogo(url);
-		System.out.println(blogVo);
 		blogService.update(blogVo);
 		model.addAttribute("blogVo", blogVo);
 		
@@ -116,9 +108,9 @@ public class BlogController {
 	}
 	
 	@RequestMapping("admin/category")
-	public String category(HttpSession session, Model model) {
-		UserVo userVo = (UserVo)session.getAttribute("authUser");
-		String userId = userVo.getId();
+	public String category(@AuthUser UserVo authUser, Model model) {
+		System.out.println(authUser);
+		String userId = authUser.getId();
 		BlogVo blogVo = blogService.findById(userId);
 		List<CategoryVo> categoryList = categoryService.findAllAndCount();
 		model.addAttribute("blogVo", blogVo);
@@ -128,10 +120,9 @@ public class BlogController {
 	}
 	
 	@RequestMapping("admin/category/add")
-	public String categoryAdd(CategoryVo vo, HttpSession session) {
-		UserVo userVo = (UserVo)session.getAttribute("authUser");
+	public String categoryAdd(CategoryVo vo, @AuthUser UserVo authUser) {
 		
-		String userId = userVo.getId();
+		String userId = authUser.getId();
 		vo.setBlogId(userId);
 		
 		System.out.println(vo);
@@ -141,10 +132,9 @@ public class BlogController {
 	}
 	
 	@RequestMapping("admin/writeForm")
-	public String writeForm(HttpSession session, Model model) {
-		
-		UserVo userVo = (UserVo)session.getAttribute("authUser");
-		String userId = userVo.getId();
+	public String writeForm(@AuthUser UserVo authUser, Model model) {
+		System.out.println(authUser);
+		String userId = authUser.getId();
 
 		BlogVo blogVo = blogService.findById(userId);
 		model.addAttribute("blogVo", blogVo);
@@ -156,10 +146,9 @@ public class BlogController {
 	}
 	
 	@RequestMapping("admin/write")
-	public String write(PostVo vo, HttpSession session, Model model) {
+	public String write(PostVo vo, @AuthUser UserVo authUser, Model model) {
 		
-		UserVo userVo = (UserVo)session.getAttribute("authUser");
-		String userId = userVo.getId();
+		String userId = authUser.getId();
 		BlogVo blogVo = blogService.findById(userId);
 		model.addAttribute("blogVo", blogVo);
 		
